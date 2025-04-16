@@ -11,7 +11,7 @@ from typing import Optional
 from typing import Tuple
 
 import cocotb
-from cocotb.clock import BaseClock
+from cocotb.clock import Clock
 from cocotb.triggers import Edge
 from cocotb.triggers import Event
 from cocotb.triggers import FallingEdge
@@ -377,9 +377,9 @@ class SpiSlaveBase(ABC):
             await self._transaction(frame_start, frame_end)
 
 
-class _SpiClock(BaseClock):
+class _SpiClock(Clock):
     def __init__(self, signal, period, units="step", start_high=True):
-        BaseClock.__init__(self, signal)
+        Clock.__init__(self, signal)
         self.period = cocotb.utils.get_sim_steps(period, units, round_mode="round")
         self.half_period = cocotb.utils.get_sim_steps(period / 2.0, units, round_mode="round")
         self.frequency = 1.0 / cocotb.utils.get_time_from_sim_steps(self.period, units='us')
