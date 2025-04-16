@@ -379,7 +379,7 @@ class SpiSlaveBase(ABC):
 
 class _SpiClock(Clock):
     def __init__(self, signal, period, units="step", start_high=True):
-        Clock.__init__(self, signal)
+        Clock.__init__(self, signal, period, units)
         self.period = cocotb.utils.get_sim_steps(period, units, round_mode="round")
         self.half_period = cocotb.utils.get_sim_steps(period / 2.0, units, round_mode="round")
         self.frequency = 1.0 / cocotb.utils.get_time_from_sim_steps(self.period, units='us')
